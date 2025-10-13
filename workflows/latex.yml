@@ -1,0 +1,58 @@
+name: Build PDF & Update Release (Latest)
+
+on:
+  push:
+    branches: [ main, master ]
+    # optional: only run when LaTeX sources change
+    paths:
+      - '**.tex'
+      - '**.bib'
+      - '**.sty'
+      - '**.cls'
+      - '**.bst'
+      - '**.png'
+      - '**.jpg'
+      - '**.pdf'
+      - '.github/workflows/release-latex.yml'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to push the tag & create/update the release
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # allows moving the 'latest' tag below
+
+      - name: Compile LaTeX
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          args: -file-line-error -interaction=nonstopmode
+          latexmk_shell_escape: true
+          latexmk_use_lualatex: true   
+
+      # Make sure the lightweight tag 'latest' points to this commit
+      - name: Move 'latest' tag to this commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -f latest ${{ github.sha }}
+          git push -f origin refs/tags/latest
+
+      # Create or update the Release and overwrite the PDF asset
+      - name: Create/Update 'Latest' Release and upload PDF
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest                    # fixed tag; no manual tagging
+          name: Latest                        # release display name
+          target_commitish: ${{ github.sha }} # ensures the release points here
+          make_latest: true                   # mark as the repo's latest release
+          overwrite_files: true               # replace existing asset
+          files: |
+            main.pdf
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

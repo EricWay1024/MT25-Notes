@@ -1,0 +1,144 @@
+% !TEX program = lualatex
+\documentclass[11pt,a4paper]{book}
+
+% ---------- Encoding & Language ----------
+% \usepackage[utf8]{inputenc}
+% \usepackage[T1]{fontenc}
+% \usepackage{lmodern}      % switch from cmr → lmr
+% \usepackage{cfr-lm}       % adds LF/OsF/TLF/TOsF shapes for Latin Modern
+\usepackage[english]{babel}
+
+% ---------- Page Layout ----------
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Notes on Differential Topology}
+\fancyhead[R]{\leftmark}
+\fancyfoot[C]{\thepage}
+
+% ---------- Math Packages ----------
+\usepackage{amsmath, amssymb, amsthm}
+% \usepackage{mathabx}
+\usepackage{mathtools}
+\usepackage{physics} % for derivatives, bra-ket notation, etc.
+\usepackage{bm}      % bold math symbols
+\usepackage{csquotes}
+
+% ---------- Extra Features ----------
+\usepackage{graphicx}
+\usepackage{tikz}       % for drawing diagrams
+\usepackage{tikz-cd}
+\usepackage{enumitem}   % for custom lists
+
+\usepackage[colorlinks=true, linkcolor=blue]{hyperref}
+
+
+\usepackage{array}
+\usepackage{longtable}
+
+% font
+\usepackage{fontspec}
+\usepackage{libertinus}
+\setmainfont{Libertinus Serif}[Numbers={OldStyle,Proportional}]
+\setsansfont{Libertinus Sans}
+\setmonofont{Libertinus Mono}
+\usepackage{unicode-math}
+\setmathfont{Libertinus Math}
+% \setmathfont{STIX Two Math} 
+
+\usepackage[nameinlink,capitalize]{cleveref}
+
+\usepackage[backend=biber,style=alphabetic]{biblatex}
+
+\usepackage{changepage}   % for adjustwidth
+\usepackage{environ}      % for capturing environment body
+
+
+\addbibresource{ref.bib}  % <- points to the file above
+
+
+% ---------- Theorem Environments ----------
+
+
+% 1) 定义一个带缩进的定理样式
+\newtheoremstyle{claimstyle}    % 样式名称
+  {3pt}                       % 上方间距
+  {3pt}                       % 下方间距
+  {\normalfont}               % 正文字体
+  {0pt}                       % 左侧缩进宽度——这里改成你想要的尺寸
+  {\itshape}                 % 定理头字体
+  {.}                         % 定理头后标点
+  { }                         % 定理头后空隙
+  {}                          % 定理头格式（留空表示自动“Claim <编号>”）
+
+\theoremstyle{plain} % 斜体正文（默认）
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition} % 正常字体正文
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+\theoremstyle{claimstyle}
+\newtheorem{claim}{Claim}[theorem]   % “Claim” numbers inside each Theorem
+
+
+% 2) define a new indented‐proof environment
+\NewEnviron{indentedproof}[1][Proof]{%
+  \begin{adjustwidth}{2em}{0pt}%  <-- change 2em to whatever indent you like
+    \begin{proof}[#1]%
+      \BODY
+    \end{proof}%
+  \end{adjustwidth}%
+}
+% ---------- Custom Commands ----------
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+
+% \newcommand{\mathbb{R}^n}{\mathbb{R}^n}
+\newcommand{\Rm}{\mathbb{R}^m}
+\newcommand{\Rk}{\mathbb{R}^k}
+\newcommand{\Rl}{\mathbb{R}^l}
+\newcommand{\Sn}{\mathbb{S}^n}
+\newcommand{\RPn}{\mathbb{RP}^n}
+\newcommand{\RP}{\mathbb{RP}}
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\Id}{\text{Id}}
+\newcommand{\GL}{\text{GL}}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Diff}{Diff}
+\newcommand{\supp}{\text{supp}\,}
+\newcommand{\Rank}{\text{rank}\,}
+\newcommand{\sbs}{\subseteq}
+\newcommand{\TODO}{TODO}
+
+% ---------- Document Begins ----------
+\begin{document}
+
+\title{Notes, Michaelmas Term 2025}
+\author{Yuhang Wei}
+\date{\today}
+\maketitle
+\tableofcontents
+% \newpage
+
+
+\chapter{Anyons and TQFT}
+\input{chapters/TQFT/1.tex}
+
+
+\newpage
+\printbibliography
+\end{document}
+
+
+
+
+
