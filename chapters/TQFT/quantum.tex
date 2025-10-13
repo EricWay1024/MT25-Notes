@@ -1,0 +1,50 @@
+
+
+\subsection{Abstract formalism of quantum mechanics}
+
+Since I have no physics background, I will try to build everything from first principles.
+
+\begin{definition}
+  A \textbf{Hilbert space} is a real or complex inner product space that is also a complete metric space with respect to the metric induced by the inner product.
+\end{definition}
+
+
+We will only consider complex Hilbert spaces in quantum mechanics. Given a Hilbert space $H$, let $P(H)$ be the projective Hilbert space of $H \setminus \left\{ 0 \right\} $ by modding out the equivalence relation $z \sim \lambda z$ for complex number $\lambda \neq 0$.     
+
+\begin{definition}
+  A \textbf{(pure) quantum state} is a \textit{ray} in $H$, i.e. an element in $P(H)$, which we identify as an element  in the unit ball of $H$. We denote it as a \textbf{ket} $| \psi \rangle$.  
+\end{definition}
+
+
+
+\begin{definition}
+  A \textbf{bra} is an element in the dual space $H^*$, written as $\langle \phi |$. We write $\langle \phi | \psi  \rangle$  for $\langle \phi | (| \psi \rangle)$. This is just an inner product of two vectors $| \phi \rangle$ (which the dual of $\langle \phi |$) and $| \psi \rangle$.  
+\end{definition}
+
+
+Note that anything of the form $| n \rangle$ is a ket (thus a vector in $H$), even though (syntax-wise) $n$ might be a letter or a number. The same can be said for bras.
+
+
+Fix a bra $\langle \phi |$ and a ket $| \psi \rangle$. We can then form an operator $\hat{O} = | \psi \rangle \langle \phi |$, which is a map $H \to H$. The Hermitian conjugate of this operator is $| \phi \rangle \langle \psi |$. In particular, we have $\hat{P}_{\psi} = |  \psi \rangle \langle \psi |$, which is a projection operator.  
+
+
+Let $\left\{ | n \rangle \right\} $  be a complete basis of $H$ (note: this completeness is different from the completeness of $H$ as a metric space).  Then $\hat{I} = \sum_{ n} | n \rangle \langle n |$. 
+
+
+The trace of an operation $\hat{K}$  is defined by $$
+\operatorname{Tr} (\hat{K}) = \sum_{n } \langle n | \hat{K} | n \rangle
+.$$
+
+The trace is invariant under change of basis, and it has the cyclical property. 
+
+An \textbf{observable} is a self-adjoint operator.
+
+For any observable $\hat{O}$ and a ket $| \psi \rangle$, we have the expectation $$
+\left< \hat{O} \right>_\psi \vcentcolon= \left< \psi | \hat{O} | \psi \right> = \operatorname{Tr} (\hat{O} \hat{P}_\psi)  = \operatorname{Tr} (\hat{P}_\psi \hat{O})
+.$$ 
+
+
+
+
+
+

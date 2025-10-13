@@ -1,0 +1,85 @@
+\section{Moduli spaces}
+
+
+\begin{definition}
+  A \textbf{hyperbolic surface} is a $2$-dimensional manifold equipped with a Riemannian metric with curvature $-1$.  
+\end{definition}
+
+
+\begin{definition}
+  A \textbf{Riemannian surface} is a $1$-dimensional complex manifold, where the transition maps between charts are holomorphic. 
+\end{definition}
+
+\begin{definition}
+  $$\operatorname{PSL}_2 \mathbb{R} \vcentcolon= \left\{ \begin{pmatrix}
+    a & c \\
+    b & d 
+  \end{pmatrix} : ad - bc \neq 0  \right\} / \left\{ \begin{pmatrix}
+  \lambda & 0 \\
+  0 & \lambda
+  \end{pmatrix} : \lambda \in \mathbb{R}_{\neq 0} \right\}.  $$ 
+  A discrete subgroup of $\operatorname{PSL}_2 \mathbb{R}$ is \TODO discrete topology?
+\end{definition}
+
+\begin{theorem}
+  Fix $g \ge 2$. The following sets are equivalent:
+  \begin{enumerate}
+    \item Hyperbolic surfaces of genus $g$;
+    \item Riemannian surfaces of genus $g$;
+    \item Discrete subgroups $\Gamma \le \operatorname{PSL}_2 \mathbb{R}$ such that $\Gamma \cong \pi_1 \Sigma_g$ (up to conjugation).  
+  \end{enumerate} 
+\end{theorem}
+
+
+\begin{proof}
+  $1 \implies 3$. Take a hyperbolic surface $\Sigma_g$  with Riemannian metric $d$. Take the universal covering $\tilde{\Sigma}_g$, and lifting $d$ gives a metric $\tilde{d}$ on $\tilde{\Sigma}_g$. Since the covering space will also have curvature $-1$, but a simply-connected space with curvature $-1$ is uniquely the hyperbolic plane, we have an identification $\tilde{\Sigma}_g = \mathbb{H}^2$. \TODO{two models of the hyperbolic plane.} Then since $\pi_1 \Sigma_g$ acts (proper discontinuously) on the covering space $\tilde{\Sigma}_g$, we have that $\pi_1 \Sigma_g$ acts on $(\tilde{\Sigma} _g, \tilde{ds^2})$ by orientation-preserving isometries, i.e. $\pi_1 \Sigma_g \to \operatorname{Isom}^+ (\mathbb{H}^2)$. But this is equivalent to Mobius transformations with discrete image and thus to discrete subgroups of $\operatorname{PSL}_2 \mathbb{R}$.  (The hyperbolic plane does not have a fixed basepoint, so the subgroups are up to conjugation).
+
+  $3 \implies 1$. We simply take the quotient space $\mathbb{H}^2 / \Gamma$. One can check that this indeed has the right genus.
+  
+  $2 \implies 3$. Suppose we have $(\Sigma_g, J)$, where $J$ is an atlas of charts. Consider the universal covering $\tilde{\Sigma}_g$, and $J$ induces an atlas $\tilde{J}$. Now a simply-connected Riemannian surface  can only be a Riemann sphere, a complex plane or a disk. However the first two cannot cover $\Sigma_g$ \TODO, and therefore $\tilde{\Sigma}_g$ must be a disk, i.e. $(\tilde{\Sigma}_g, \tilde{J}) \cong D^2$ as Riemannian surfaces. Now $\pi_1 \Sigma_g$ acts on $\tilde{\Sigma}_g$, so we have a map $\pi_1 \Sigma_g \to \operatorname{Aut}(D^2) = \operatorname{PSL}_2 \mathbb{R}$ (Mobius transformations again). We have discrete image due  to the proper discontinuity of the action.   
+
+  $3 \implies 2$. Still take a quotient $D^2 / \Gamma$.  
+\end{proof}
+
+\begin{example}
+    Tile $\mathbb{H}^2$ with octagons. Let $\Gamma$ be the group of isometries which preserve the tiling. Then $\mathbb{H}^2 / \Gamma$ is equivalent to an octagon with side identifications which is exactly the genus-2 surface.     
+\end{example}
+
+
+\begin{definition}
+  The set above for $g \ge 2$ is called the \textbf{moduli space} $M_g$.   
+\end{definition}
+
+
+We now attempt to equip such set with a metric, called the \textbf{Teichmuller metric}, to make it a metric space. Let $X_1, X_2$ be two Riemann surfaces.  Let $f : X_1\to X_2$ be an orientation-preserving diffeomorphism. First, define for any $p \in X_1$  $$
+\mu_f (p) = \frac{\partial_{\bar{z}} f}{\partial_z f} |_p
+.$$ Then define $$
+K (f) = \sup_{p \in X_1} \frac{1 + | \mu_f (p)| }{1 - | \mu_f (p) | }
+.$$ 
+Then $$
+d_{\text{Teich}}(X_1, X_2) = \log \inf \left\{ K(f) : \text{orientation-perserving diffeomorphism } f : X_1\to X_2\right\} 
+.$$ 
+
+
+To see what this all means, first take the derivative $Df : TX_1 \to TX_2$. Then as $f$ sends $p \in X_1$ to $f(p) \in X_2$, $Df$ sends $v \in TX_1$ to $Df(v)$ and $iv \in TX_1$ (which is perpendicular to $v$) to $Df(iv)$. $f$ is \textbf{perfectly conformal} if $Df(i v) = i Df(v)$, i.e. the perpendicularity is preserved; but this is not always the case. In general, $Df = \partial_z f + \partial_{\bar{z}} f$, where the second term vanishes if $f$ is perfectly conformal; in which case $\mu_f = 0$. 
+
+For $K(f)$, we find the point where the distortion is the worst. If we take an infinitesimal circle around $p \in X_1$, then $f$ will send this circle to some ellipse with long axis $a$ and short axis $b$. Then $K(f) = \sup_{p \in X_1} \frac{a}{b}$.  Therefore, $K(f) = 1$ only for perfectly conformal maps; otherwise, $K(f) > 1$. 
+
+Then $d_{\text{Teich}}$ is a measurement of how close the ``best'' diffeomorphism $f$ between $X_1$ and $X_2$ is to preserving the Riemannian structure. 
+
+
+In this way we make $M_g$ a metric space; and thus a topological space. 
+
+
+\begin{proposition}
+  $(M_g, d_{\text{Teich}})$ is a $(6g-6)$-dimensional manifold; it is not simply-connected.   
+\end{proposition}
+
+\begin{proposition}
+  $(M_g, d_{\text{Teich}})$ is not Riemannian but Finslerian.  
+\end{proposition}
+
+
+Let $\Sigma$ be an orientable smooth surface. Define $\operatorname{Teich}(\Sigma)$ as the space of hyperbolic metrics on $\Sigma$, equivalently complex structures on $\Sigma$, equivalently discrete and faithful homomorphisms $\pi_1(\Sigma) \to \operatorname{PSL}_2 \mathbb{R} / \text{conjugation}$.     
+Then the Teichmuller space is topologically equivalent to $\mathbb{R}^{6g-6}$ and is   a covering space of $M_g$. 
+
