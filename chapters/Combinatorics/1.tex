@@ -1,0 +1,47 @@
+\section{Power sets}
+
+
+Let $[n] \vcentcolon= \left\{ 1,2, \ldots ,n \right\} $.
+Let $\mathcal{P}(n)$ be the power set of $[n]$.
+Let $[n]^{(k)}$ be the set of $k$-subsets of $[n]$; it is also called the $k$-th layer of $\mathcal{P}(n)$.
+
+\begin{proposition}
+  $| \mathcal{P}(n) | = 2^n$ and $| [n] ^{(k)} | = \binom{n}{k}$.  
+\end{proposition}
+
+
+$\mathcal{P}(n)$ is naturally a poset, where the relation $A \le B$  is given by set inclusion $A \subseteq B$. 
+
+\begin{definition}
+  The \textbf{symmetric difference} between two sets $A$ and $B$ is the set $A \bigtriangleup B \vcentcolon= (A \setminus B) \cup (B \setminus A)$. 
+\end{definition}
+
+
+If $| A \bigtriangleup B | = 1$, then either $A$ is obtained from removing an element from $B$, or $B$ is obtained from removing an element from $A$. 
+
+
+\begin{definition}
+  The \textbf{discrete cube} $Q_n$ is the graph with vertex set $\mathcal{P}(n)$ and an edge between $A$ and $B$ if and only if $| A \bigtriangleup B | = 1$.    
+\end{definition}
+
+
+We can also identify each element $A$ in $\mathcal{P}(n)$ with its \textbf{characteristic vector} in $\mathbb{F}^n_2$, which is $0$ resp. $1$ on the $i$-th position  if $i \in A$ resp. $i \not \in A$. 
+
+Note that the symmetric difference corresponds to the XOR operation between two characteristic vectors.
+
+
+
+\begin{proposition}
+  $(A, B) \mapsto | A \bigtriangleup B |$ gives a metric on $Q_n$.   
+\end{proposition}
+
+\begin{proof}
+  We only need to check the triangle inequality: $| A \bigtriangleup B| + |B \bigtriangleup C| \ge | A \bigtriangleup C |$. We can draw a Venn diagram for the three sets and partition $A \cup B \cup C$ into seven regions, and represent both sides by summing up their covered regions.  Then it becomes evident.
+\end{proof}
+
+\section{Antichains}
+
+\begin{definition}
+  A family $\mathcal{A} \subseteq  \mathcal{P}(n)$ is \textbf{chain} if all pairs 
+\end{definition}
+
