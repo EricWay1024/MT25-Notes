@@ -39,9 +39,122 @@ Note that the symmetric difference corresponds to the XOR operation between two 
   We only need to check the triangle inequality: $| A \bigtriangleup B| + |B \bigtriangleup C| \ge | A \bigtriangleup C |$. We can draw a Venn diagram for the three sets and partition $A \cup B \cup C$ into seven regions, and represent both sides by summing up their covered regions.  Then it becomes evident.
 \end{proof}
 
-\section{Antichains}
+\section{Chains and antichains}
 
 \begin{definition}
-  A family $\mathcal{A} \subseteq  \mathcal{P}(n)$ is \textbf{chain} if all pairs 
+  Let $P$ be a poset. A \textbf{chain} resp. \textbf{antichain} in $P$ is a subset $\mathcal{A}$ of $P$ such that $A$ and $B$ are comparable resp. incomparable for any distinct $A, B \in  \mathcal{A}$.   A chain (resp. antichain) $\mathcal{A}$  is \textbf{maximal} if no other element of $P$  can be added to $\mathcal{A}$ so that $\mathcal{A}$ remains a chain (resp. antichain). 
 \end{definition}
+
+Note that if we say the largest (anti)chain, that means the (anti)chain with the largest size.
+
+The following is evident from the definition.
+\begin{lemma} \label{lem:chain-antichain-at-most-one-common}
+  A chain and an antichain have at most one common element.
+\end{lemma}
+
+We first study the chains and antichains in $\mathcal{P}(n)$. 
+
+\begin{proposition}
+  Every maximal chain in $\mathcal{P}(n)$ has $(n+1)$ elements, and there are $n!$ of them.   
+\end{proposition}
+
+\begin{proof}
+  Each of a maximal chain can be identified as the process of adding all the $n$ numbers to the empty set one by one. 
+\end{proof}
+
+
+A more interesting result is the following.
+
+\begin{theorem}
+  The largest antichain in $\mathcal{P}(n)$ has size $\binom{n}{\lfloor \frac{n}{2} \rfloor}$.  
+\end{theorem}
+
+
+Clearly each layer of $\mathcal{P}(n)$ is an antichain and among them the largest size is  $\binom{n}{\lfloor \frac{n}{2} \rfloor}$. We have to show this is the largest possible size for an antichain. This is stated as:
+
+\begin{theorem}[Sperner's Lemma]
+  An antichain in $\mathcal{P}(n)$ has size at most $\binom{n}{\lfloor \frac{n}{2} \rfloor}$, which is only attained when it is a middle layer.
+\end{theorem}
+
+(By a middle layer we want to gloss over the cases when $n$ is odd or even.)
+
+
+\subsection{Sperner's Lemma: first proof}
+
+By \cref{lem:chain-antichain-at-most-one-common}, we cannot partition $\mathcal{P}(n)$ into fewer than $\binom{n}{\lfloor \frac{n}{2} \rfloor}$ chains (since we have an antichain of that size). The question is whether this is an attainable minimum. The answer is yes, and it implies Sperner's Lemma (albeit without giving the condition for attaining the extremum).
+
+\begin{lemma}[Hall's Theorem]
+  Let $G = (V, E)$ be a bipartite graph with vertex classes $X$ and $Y$. Then $G$ has a complete matching from $X$ to $Y$ if and only if for all $S \subseteq  X$ we have $\Gamma(S) \ge S$ (Hall's condition), where $\Gamma(S)$ is the \textbf{neighborhood} of $S$ defined as the set of vertices $u$ such that there is an edge connecting $u$ and some $v \in S$.  
+\end{lemma}
+
+A \textbf{complete matching} from $X$ to $Y$ is defined as an edge set $M = \left\{ e_x \right\} _{x \in X}$ such that any $y \in Y$ is incident to at most one edge in $M$.  If the edges are thought of as a way of mapping then this gives an injective map from $X$ to $Y$. 
+
+
+\begin{lemma}
+  There is a partition of $\mathcal{P}(n)$ into  $\binom{n}{\lfloor \frac{n}{2} \rfloor}$ chains. 
+\end{lemma}
+
+\begin{proof}
+  In $Q_n$, we claim that for $r < \frac{n}{2}$, there is a complete matching from $[n]^{(r)}$ to $[n]^{(r+1)}$.
+  
+  We consider the bipartite subgraph $G$ of $Q_n$ whose vertex set consists of these two layers. By Hall's Lemma, we only have to verify Hall's condition. The trick is a double counting argument. Let $S \subseteq [n]^{(r)}$ and $T = \Gamma(S)$. We double count the number of edges $e(S, T)$ between $S$ and $T$. 
+
+  Each $A \in S$ has degree $(n-r)$ since there are $(n-r)$ ways to add an element to $A$ to make an $(r+1)$-set. Therefore $e(S, T) = (n-r) |S|$. 
+  
+  In the graph $G$, each  $B \in [n]^{(r+1)}$ has degree $(r+1)$. However, if $B \in T$ and we remove an element from $B$, we are not guaranteed to get a set in $S$. (Simple example: $n = 2$, $r=1$,   $S = \left\{ \left\{ 1 \right\}  \right\} $ and $T = \left\{ \left\{ 1,2 \right\}  \right\} $, but removing $1$ from $\left\{ 1,2 \right\} $ does not give us something in $S$.) Therefore $e(S, T) \le (r+1) |T|$. 
+  
+  Then some calculation reveals that $|T| \ge |S|$ as $r < \frac{n}{2}$. Thus Hall's condition is satisfied and our claim is proven. 
+  
+  By symmetry there is a complete matching from $[n]^{(r)}$ to $[n]^{(r-1)}$ if $r >\frac{n}{2}$. We can then glue these matchings together and we get the desired partition. (Imagine ``collapsing'' the layers from both ends towards the middle.)  
+\end{proof}
+
+
+\begin{proof}[Sperner's Lemma, first proof]
+  By \cref{lem:chain-antichain-at-most-one-common}, we see that no antichain can contain more than $\binom{n}{\lfloor \frac{n}{2} \rfloor}$ elements.
+\end{proof}
+
+\subsection{Sperner's Lemma: second proof; LYM inequality}
+
+
+\begin{theorem}[LYM Inequality]
+  Let $\mathcal{F} \subseteq  \mathcal{P}(n)$ be an antichain. Then $$
+  \sum_{i = 0}^{n} \frac{|\mathcal{F} \cap [n]^{(i)}|}{\binom{n}{i}} \le 1
+  .$$ 
+  The equality is attained if and only if $\mathcal{F} = [n]^{(i)}$ for some $i$. 
+\end{theorem}
+
+
+The theorem says that it is more ``expensive'' to take a set away from the middle layer since then the ``weight'' $\frac{1}{\binom{n}{i}}$ is larger. An extreme case: if we take the empty set, then it contributes $1$ to the summand and we are forced to take no other sets.
+
+
+
+\begin{proof}[Sperner's Lemma, second proof, assuming LYM Inequality]
+  Let $\mathcal{F} \subseteq \mathcal{P}(n)$ be an antichain. Then we have $$
+  1 \ge \sum_{i = 0}^{n} \frac{|\mathcal{F} \cap [n]^{(i)}|}{\binom{n}{i}}  \ge \sum_{i = 0}^{n} \frac{|\mathcal{F} \cap [n]^{(i)}|}{\binom{n}{\lfloor n / 2 \rfloor}} = \frac{|\mathcal{F}|}{\binom{n}{\lfloor n / 2 \rfloor}}
+  ,$$ 
+  since $\binom{n}{\lfloor n / 2 \rfloor} \ge \binom{n}{i}$  for all $i$. 
+  If we have equality, then $\mathcal{F} = [n]^{(i)}$ and $i = \lfloor \frac{n}{2} \rfloor$ or   $i = \lceil   \frac{n}{2} \rceil$.
+\end{proof}
+
+
+
+\subsection{LYM inequality: first proof; Local LYM}
+
+Let $\mathcal{F} \subseteq [n]^{(k)}$. The lower shadow $\partial \mathcal{F}$ of $\mathcal{F}$ is $\left\{ B \in [n]^{(k-1)} : B \subseteq A \text{ for some } A \in \mathcal{F} \right\} $.
+
+
+This is just the neighborhood of $\mathcal{F}$ in the graph $Q_n$ intersecting the lower layer. 
+
+
+\begin{lemma}
+  Let $\mathcal{A} \subseteq [n]^{(r)}$. Then $$
+  \frac{| \partial \mathcal{A} |}{\binom{n}{r-1}} \ge \frac{| \mathcal{A} |}{\binom{n}{r}}
+  .$$
+  Equality is attained if and only if $A$ is $\varnothing$ or $[n]^{(r)}$.  
+\end{lemma}
+
+\begin{proof}
+  Also a double counting argument, much akin to what we have seen. See notes.
+\end{proof}
+
 
